@@ -1,11 +1,12 @@
 package pe.edu.ulima.pm.pm_nota1_herrera_huarcaya_taco
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import pe.edu.ulima.pm.pm_nota1_herrera_huarcaya_taco.databinding.ActivityMainBinding
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     enum class Turn{
@@ -23,6 +24,11 @@ class MainActivity : AppCompatActivity() {
 
     //Lista mutable de botones
     private var boardList = mutableListOf<Button>()
+
+    private var Letras = listOf<String>("α","β","γ","δ","ε","ζ",
+        "η","θ","ι","κ","λ","μ","ν","ξ","ο","π","ρ","σ","ς","τ",
+        "θ","φ","χ","ψ","ω")
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,22 +102,32 @@ class MainActivity : AppCompatActivity() {
 
     private fun result(s: String) {
         if(s == "X"){
-            binding.turnoJugador.text = "Ganador X"
+            binding.turnoJugador.text = "Ganador $X"
         }else if(s == "O"){
-            binding.turnoJugador.text = "Ganador O"
+            binding.turnoJugador.text = "Ganador $O"
         }else{
             binding.turnoJugador.text = "Empate"
         }
 
     }
 
+    fun getRandomColor(): Int {
+        val rnd = Random()
+        return Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+    }
+
     private fun resetBoard() {
         for(button in boardList){
             button.text = ""
-            //Falta agregar más colores (maybe un indice random de una lista)
-            button.setBackgroundColor(Color.CYAN)
+            binding.layoutTicTacToe.setBackgroundColor(getRandomColor())
         }
 
+
+        O = Letras.random()
+        X = Letras.random()
+        while (O == X){
+            X = Letras.random()
+        }
         if(firstTurn ==Turn.O)
             firstTurn = Turn.X
         else if(firstTurn == Turn.X)
@@ -155,7 +171,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object{
-        const val O = "O"
-        const val X = "X"
+        var O = "O"
+        var X = "X"
     }
 }
