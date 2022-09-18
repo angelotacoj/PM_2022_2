@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
 
     private var colour = 0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //Parte del binding
@@ -65,6 +64,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun openGame(){
         for(button in boardList){
             button.setOnClickListener {
@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     //Checa
     fun boardTapped(view : View){
         if(view !is Button)
@@ -101,19 +102,16 @@ class MainActivity : AppCompatActivity() {
             return true
         if(match(binding.z1, s) && match(binding.z2, s) && match(binding.z3, s))
             return true
-
         if(match(binding.x1, s) && match(binding.y1, s) && match(binding.z1, s))
             return true
         if(match(binding.x3, s) && match(binding.y3, s) && match(binding.z3, s))
             return true
         if(match(binding.x2, s) && match(binding.y2, s) && match(binding.z2, s))
             return true
-
         if(match(binding.x1, s) && match(binding.y2, s) && match(binding.z3, s))
             return true
         if(match(binding.x3, s) && match(binding.y2, s) && match(binding.z1, s))
             return true
-
         return false
     }
 
@@ -127,7 +125,6 @@ class MainActivity : AppCompatActivity() {
         }else{
             binding.turnoJugador.text = "Empate"
         }
-
     }
 
     fun getRandomColor(): Int {
@@ -141,7 +138,6 @@ class MainActivity : AppCompatActivity() {
             colour = getRandomColor()
             binding.layoutTicTacToe.setBackgroundColor(colour)
         }
-
 
         O = Letras.random()
         X = Letras.random()
@@ -187,7 +183,6 @@ class MainActivity : AppCompatActivity() {
             turnText ="Turn $X"
         else if(currentTurn == Turn.O)
             turnText = "Turn $O"
-
         binding.turnoJugador.text = turnText
     }
 
@@ -222,8 +217,7 @@ class MainActivity : AppCompatActivity() {
         binding.z3.text = savedInstanceState.getCharSequence("z3", "")
         binding.turnoJugador.text = savedInstanceState.getCharSequence("turnoJugador", "")
         colour = savedInstanceState.getInt("color",0)
-        binding.layoutTicTacToe
+        binding.layoutTicTacToe.setBackgroundColor(colour)
         super.onRestoreInstanceState(savedInstanceState)
     }
-
 }
